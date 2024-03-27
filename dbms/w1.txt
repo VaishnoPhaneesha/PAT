@@ -1,0 +1,74 @@
+-- create
+CREATE TABLE worker (
+  wId int,
+  wname varchar(20) not null primary key,
+  dept varchar(20) not null,
+  salary int not null,
+  doj datetime not null
+);
+
+-- insert
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (1, 'Anil', 'Accounts',10000,01-01-2020);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (2, 'Anu', 'Admin',11000, 01-10-2020);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (3, 'AnilKumar', 'HR',5000,03-11-2020);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (4, 'Anirudh', 'Marketing',12000,11-12-2021);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (5, 'Anuradh Kumar', 'Establishment',8000,01-01-2020);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (6, 'Anoop', 'Finance',10000,01-01-1998);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (7, 'Anoop Kumar', 'Stores',9000,01-01-2001);
+INSERT INTO worker(wId,wname,dept,salary,doj) VALUES (8, 'Adarsh', 'Security',7000,01-01-2008);
+
+-- fetch 
+SELECT * FROM worker;
+GO
+
+update worker set wname='Anil Prasad' where wname='AnilKumar'
+
+update worker set salary=5500 where salary<6000
+
+select * from worker where salary=(select max(salary) from worker)
+
+select * from worker where salary=(select min(salary) from worker);
+
+select max(salary) from worker where salary not in (select max(salary) from worker)
+
+select * from worker where doj =(select min(doj) from worker)
+
+select * from worker where doj=(select max(doj) from worker)
+
+select concat (concat(wname,' is working in '),dept) from worker
+
+select concat(concat(wname, ' salary is'),salary) from worker
+
+select * from worker order by salary 
+
+select * from worker order by dept
+
+select * from worker order by salary desc
+
+select * from worker order by dept asc
+
+select substring (wname,1,1) from worker
+
+select * from worker where wname like '%s'
+
+select * from worker where dept='Accounts'
+
+select * from worker where dept='Security'
+
+select * from worker where dept != 'HR'
+
+select * from worker where salary>8000 and salary<12000
+
+select distinct dept from worker
+
+SELECT count(*) from worker 
+
+select dept,count(*) from worker group by dept
+
+select dept,avg(salary) as Average_salary from worker group by dept
+
+select dept from worker group by dept,wId having count(wId) >1
+
+
+
+
