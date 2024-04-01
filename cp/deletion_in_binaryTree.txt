@@ -1,0 +1,96 @@
+algorithm for deletion in binry tree
+
+1. start from root of the tree
+2. if the tree is empty, return none
+3. if the root node is the node to be deleted :
+	if the root node has no children, return none
+	if the root node has only one child, return the child.
+	if the root node has 2 children:
+		find the deepest node in the right subtree(or left subtree)
+		copy the data of the deppest node to the root
+		delete the deepest node
+4. otherwise, perform level-order traversal to find the node to be deleted
+5. once the node to be deleted is found:
+	if the node has no children, delete the node
+	if the node has only one child, replace the node with its child
+	if the node has 2 children:
+		find the deepest node in the right subtree(or left subtree)
+		copy the data of the deppest node to the root
+		delete the deepest node
+6. return the node of the modified tree
+
+
+class Node:
+	def __init__(slef,data):
+		self.data = data
+		slef.left = None
+		self.right = None
+	def inorder(root):
+		if not root:
+			return
+		inorder(root.left)
+		print(root.data, end=" ")
+		inorder(root.right)
+	def delete_deepest(root, d_node):
+		q = [root]
+		while q:
+			temp = q.pop(0)
+			if temp is d_node:
+				temp = None
+				return
+			if temp.right:
+				if temp.right is d_node:
+					temp.right = None
+					return
+				else:
+					q.append(temp.right)
+			if temp.left:
+				if temp.left is d_node:
+					temp.right = None
+					return
+				else:
+					q.append(temp.left)
+					
+	def deletion(root, key):
+		if root is None:
+			return None
+		if root.left is None and root.right is None:
+			if root.data == key:
+				return None
+			else:
+				return root
+		key_node = None
+		q = [root]
+		temp = None
+		while q:
+			temp = q.pop(0)
+			if temp.data == key:
+				key_node = temp
+			if temp.left:
+				q.append(temp.left)
+			if temp.right:
+				queue.append(temp.right)
+		if key_node:
+			x = temp.data
+			delete_deepest(root, temp)
+			key_node.data = x
+		return root
+		
+#Driver code
+if __name__ == "__main__":
+	root = Node(50)
+	root.left = Node(30)
+	root.left.left = Node(20)
+	root.left.right = Node(40)
+	root.right = Node(70)
+	root.right.left = Node(60)
+	root.right.right = Node(80)
+	
+	print("Tree before deletion:", end= " ")
+	inorder(root)
+	
+	key = 30
+	root = deletion(root,key)
+	
+	print("\n The tree after deletion:", end=" ")
+	inorder(root)
